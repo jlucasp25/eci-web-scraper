@@ -1,0 +1,16 @@
+{
+  "name": "eci_web_scraper",
+  "version": "1.0.0",
+  "description": "Web scraper for discounts in El Corte Inglés website.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "João Lucas Pires",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.5"
+  }
+}
