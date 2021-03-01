@@ -12,7 +12,7 @@ const categoryLinks = {
     'Toys/Discount':'https://www.elcorteingles.pt/brinquedos/discount::81-%3E100%2C%2C71-%3E81%2C%2C61-%3E71%2C%2C51-%3E61%2C%2C41-%3E51/?sorting=discountPerDesc'
 };
 
-const fetchBuildProductInformation = (url) => {
+const fetchBuildProductInformation = (label, url) => {
     let database = [];
     axios
         .get(url)
@@ -35,25 +35,24 @@ const fetchBuildProductInformation = (url) => {
                 let productObject = new Product(product.id,product.name,product.category[0],product.price.o_price,product.price.f_price,product.price.discount,product.status,product.badges.express_delivery);
                 database.push(productObject);
             }
-            printDatabase(database);
+            printDatabase(label, database);
         })
         .catch((error) => {
             console.error(error)
         });
 };
 
-const printDatabase = (database) => {
+const printDatabase = (label, database) => {
     let current_time = new Date();
+    console.log('* --- ' + label + ' | ' + current_time.getHours() + ':' + current_time.getMinutes() + ' --- *');
+    console.log('');
     for (let product of database) {
         console.log('| ' + product.name + ' | ' + product.current_price + ' € | ' + product.discount_percentage +' % | Stock: ' + product.stock + ' |');
     }
     console.log('');
-    console.log('* --- ' + current_time.getHours() + ':' + current_time.getMinutes() + ' --- *');
 }
 
 
-fetchBuildProductInformation(categoryLinks['Gaming/Discount']);
-
-setInterval(() => {
-    fetchBuildProductInformation(categoryLinks['Gaming/Discount']);
-}, 1800000);
+fetchBuildProductInformation('Jogos',categoryLinks['Gaming/Discount']);
+fetchBuildProductInformation('Tecnologia', categoryLinks['Technology/Discount']);
+fetchBuildProductInformation('Brinquedos', categoryLinks['Toys/Discount']);
